@@ -1,6 +1,6 @@
 "use strict";
 
-// Show form (Does this belong here??)
+// Show Form
 
 function Search() {
     return (

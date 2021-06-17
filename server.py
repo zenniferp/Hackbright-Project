@@ -4,10 +4,8 @@ import json
 import os
 
 app = Flask(__name__)
-app.secret_key = 'secret'
-access_token = 
-
-#TODO look up how Efren did API_KEY for helix
+ACCESS_TOKEN = os.getenv('ACCESS_TOKEN')
+API_KEY = os.getenv('API_KEY')
 
 @app.route('/')
 def home():
@@ -15,8 +13,8 @@ def home():
     return render_template('main.html')
 
 # Declare API routes for AJAX requests here
-#make a route on my server (/api/yelpsearch), in that route, hit the yelp api using the request library
-#store that data in a variable, return the variable. 
+# make a route on my server (/api/yelpsearch), in that route, hit the yelp api using the request library
+# store that data in a variable, return the variable. 
 # see example API lab
 
 @app.route('/api/search', methods=['POST'])
