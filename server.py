@@ -5,7 +5,7 @@ import os
 
 app = Flask(__name__)
 app.secret_key = 'secret'
-access_token =  #this prob needs to go inthe search bar jsx
+access_token = 
 
 #TODO look up how Efren did API_KEY for helix
 
@@ -14,6 +14,7 @@ def home():
     """show main page"""
     return render_template('main.html')
 
+# Declare API routes for AJAX requests here
 #make a route on my server (/api/yelpsearch), in that route, hit the yelp api using the request library
 #store that data in a variable, return the variable. 
 # see example API lab
@@ -41,15 +42,11 @@ def search_rooftop():
     # Translate the returned JSON string to a dict
     rooftop_data = response.json()
 
-    # what do I return? study react
     return render_template('main.html')
 
 # @app.route('api/search/details')
 #     """When a user clicks, open up information... ?"""
 
-# Declare API routes for AJAX requests here; what does this mean?
-# If you want to return data from yelp api from frontend and use it in the backend, you could add a route here and save the returned data as a variable
-# For example, if the user wants to save data from searching, store data in a state. Then create a post req, using data from state. It will hit a route in my server. Inside the view function, you can define a fn to add it to ur database.
 
 if __name__ == '__main__':
 
