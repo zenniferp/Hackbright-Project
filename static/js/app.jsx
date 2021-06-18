@@ -4,9 +4,16 @@
 
 function App() {
     return (
-        <div>
-            
+        <React.Fragment>
+        <div className="App">
+            <ReactRouterDOM.Route exact path = "/">
+                <Homepage />
+            </ReactRouterDOM.Route>
+            <ReactRouterDOM.Route exact path = "/api/search">
+                <Search />
+            </ReactRouterDOM.Route>
         </div>
+        </React.Fragment>
     );
 }
 

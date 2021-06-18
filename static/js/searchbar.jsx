@@ -1,30 +1,48 @@
 "use strict";
 
-// Show Form
+// Frontend > Server > Yelp > Server > Frontend
+
+
+//Do I need to pass props here?
 
 function Search() {
+// Process user input
+    const handleInput = (evt) => {
+        searchBars(evt.target.value)
+    }
+
+    const handleSubmit = (evt) => {
+        evt.preventDefault();
+        //?
+    }
+// Show Form
     return (
         <React.Fragment>
         <div className="searchbar">
- 
-            <form action="/search" method="POST">
-                <p>
-                    Street <input type="street" name="street"></input>
-                </p>
-                <p>
-                    City <input type="city" name="city"></input>
-                </p>
-                <p>
-                    State <input type="state" name="state"></input>
-                </p>
-                <p>
-                    Radius <input type="radius" name="radius"></input>
-                </p>
-                <p>
-                    <input type="submit"></input>
-                </p>
-            </form>
-                
+            <p> Search for a rooftop bar near you! </p>
+            <form onSubmit = {handleSubmit}>
+                <input
+                    type="text"
+                    value={street}
+                    name="street">
+                    onChange={handleInput} required={true}/>
+                <input
+                    type="text"
+                    value={city}
+                    name="city">
+                    onChange={handleInput} required={true}/>
+                <input
+                    type="text"
+                    value={state}
+                    name="state">
+                    onChange={handleInput} required={true}/>
+                <input
+                    type="text"
+                    value={radius}
+                    name="radius">
+                    onChange={handleInput} required={true}/>
+                <button type="submit">Search</button>
+            </form>  
         </div>
         </React.Fragment>
     );
@@ -38,6 +56,8 @@ React.useEffect(() => {
         .then((response) => response.json());
 },[]);
 
+//useState: she set it empty. When user hits submit, it updates the state of searchPlant
+// line 190 
 
 //OLD CODE BELOW
 //AJAX lecture
