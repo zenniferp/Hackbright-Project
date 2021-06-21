@@ -1,11 +1,9 @@
 from flask import Flask, jsonify, render_template, request, session
 import requests
 import json
-import os
+from keys import ACCESS_TOKEN, API_KEY
 
 app = Flask(__name__)
-ACCESS_TOKEN = os.getenv('ACCESS_TOKEN')
-API_KEY = os.getenv('API_KEY')
 
 @app.route('/')
 def home():
@@ -40,11 +38,12 @@ def search_rooftop():
     # Translate the returned JSON string to a dict
     rooftop_data = response.json()
 
-    return render_template('main.html')
+    return rooftop_data
 
 # @app.route('api/search/details')
 #     """When a user clicks, open up information... ?"""
 
+# TODO: improve form, add miles, use lat and longitude to pull in google map api
 
 if __name__ == '__main__':
 

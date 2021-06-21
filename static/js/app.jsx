@@ -4,16 +4,16 @@
 
 function App() {
     return (
-        <React.Fragment>
-        <div className="App">
-            <ReactRouterDOM.Route exact path = "/">
-                <Homepage />
-            </ReactRouterDOM.Route>
-            <ReactRouterDOM.Route exact path = "/api/search">
-                <Search />
-            </ReactRouterDOM.Route>
-        </div>
-        </React.Fragment>
+        <ReactRouterDOM.BrowserRouter>
+            <div className="container-fluid">
+                <ReactRouterDOM.Route exact path = "/">
+                    <Homepage />
+                </ReactRouterDOM.Route>
+                <ReactRouterDOM.Route exact path = "/search">
+                    <Search />
+                </ReactRouterDOM.Route>
+            </div>
+        </ReactRouterDOM.BrowserRouter>
     );
 }
 
