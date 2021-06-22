@@ -10,14 +10,43 @@
     <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/react-router-dom@5.2.0/umd/react-router-dom.js"></script>
+    
+    <!-- CALLBACK = NAME OF FUNCTION TO EXECUTE AFTER MAPS API LOADS-->
+    <script>
+          function initMap(){
+            const uluru = { lat: -25.344, lng: 131.036 };
+            // The map, centered at Uluru
+            const map = new google.maps.Map(document.getElementById("map"), {
+              zoom: 4,
+              center: uluru,
+            });
+            // The marker, positioned at Uluru
+            const marker = new google.maps.Marker({
+              position: uluru,
+              map: map,
+            });
+    }
+    </script>
+    <!--<script type="text/jsx" src="/static/js/maps.jsx"></script>-->
+
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-  </head>
+
+  
+</head>
   <body>
     <!-- container for React app... look at react shopping site to see how app and html should look like. you should only mount the app here -->
-    <div id='root'></div>
+
+    <div id='search'></div>
     <script type="text/jsx" src="/static/js/search.jsx"></script>
+    <div id='map'>TEST</div>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAjpErE26dDxvQMnZS8I-cUOGjz6WW3rik&callback=initMap&libraries=&v=weekly"
+      async
+    ></script>
+    <div id='root'></div>
     <script type="text/jsx" src="/static/js/homepage.jsx"></script> 
     <script type="text/jsx" src="/static/js/app.jsx"></script>
+
   </body>
 </html>
 

@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, render_template, request, session
 import requests
 import json
-from keys import ACCESS_TOKEN, API_KEY
+from keys import ACCESS_TOKEN, YELP_API_KEY, MAPS_API_KEY
 
 app = Flask(__name__)
 
@@ -21,11 +21,12 @@ def search_rooftop():
     street = request.form.get("street")
     city = request.form.get("city")
     state = request.form.get("state")
+    # import pdb; pdb.set_trace()
     radius = request.form.get("radius")
 
     # Define the API Key, endpoing, and header
     endpoint = 'https://api.yelp.com/v3/businesses/search'
-    headers = {'Authorization': 'Bearer %s' % API_KEY}
+    headers = {'Authorization': 'Bearer %s' % YELP_API_KEY}
 
     # Define the parameters
     parameters = {  'term': 'rooftop',
