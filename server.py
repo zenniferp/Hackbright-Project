@@ -18,19 +18,20 @@ def home():
 @app.route('/api/search', methods=['POST'])
 def search_rooftop():
     """Get address and radius from user input and return results of rooftop bars in Yelp"""
-    street = request.form.get("street")
-    city = request.form.get("city")
-    state = request.form.get("state")
-    # import pdb; pdb.set_trace()
-    radius = request.form.get("radius")
+    street = request.json.get("street")
+    city = request.json.get("city")
+    state = request.json.get("state")
+    radius = request.json.get("radius")
+    # Convert user's input to meters
+    radius = int(radius)*1607
 
     # Define the API Key, endpoing, and header
     endpoint = 'https://api.yelp.com/v3/businesses/search'
     headers = {'Authorization': 'Bearer %s' % YELP_API_KEY}
 
     # Define the parameters
-    parameters = {  'term': 'rooftop',
-                    'limit': 50,
+    parameters = {  'term': 'rooftop bar',
+                    'limit': 10,
                     'location': f"{street}, {city}, {state}",
                     'radius': radius}
     # Make a request to the Yelp API
@@ -39,7 +40,7 @@ def search_rooftop():
     # Translate the returned JSON string to a dict
     rooftop_data = response.json()
 
-    return rooftop_data
+    return jsonify(rooftop_data)
 
 # @app.route('api/search/details')
 #     """When a user clicks, open up information... ?"""
@@ -49,3 +50,5 @@ def search_rooftop():
 if __name__ == '__main__':
 
     app.run('0.0.0.0', debug=True)
+
+# debugger: import pdb; pdb.set_trace()

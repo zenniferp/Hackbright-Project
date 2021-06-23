@@ -12,6 +12,9 @@ function App() {
                 <ReactRouterDOM.Route exact path = "/search">
                     <Search />
                 </ReactRouterDOM.Route>
+                <ReactRouterDOM.Route exact path = "/map">
+                    <MapComponent />
+                </ReactRouterDOM.Route>
             </div>
         </ReactRouterDOM.BrowserRouter>
     );
