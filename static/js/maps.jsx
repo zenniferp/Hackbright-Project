@@ -57,6 +57,25 @@ function MapComponent(props) {
         title: result.name,
         map: map // this is the map that the marker needs to go on
       });
+
+      // When a user clicks on the bar marker, show bar name and address
+      const barInfo = new google.maps.InfoWindow();
+      const barInfoContent = (`
+        <div class="window-content">
+          <h6>${result.name}</h6>
+          <ul class="bar-info">
+            <li><b>Address: </b>${result.location.display_address}</li>
+            <li><b>Rating: </b>${result.rating}</li>
+            <li><b><a href="${result.url}">Yelp url</a></b></li>
+          </ul>
+        </div>
+      `);
+
+      barMarker.addListener('click', () => {
+        barInfo.close();
+        barInfo.setContent(barInfoContent);
+        barInfo.open(map, barMarker);
+      });
       map.setCenter(centerPosition);
     }
     
@@ -65,15 +84,13 @@ function MapComponent(props) {
 
   } else { console.log('but there is no map')}
 
-//TODO look at beardemo for info window; 
-
   return (
     <div id="map-div"
       style={{ 
         height: 800, 
         margin: `1em 0`, 
         borderRadius: `0.5em`, 
-        width: 800
+        width: 1200
       }}
       ref={ref}
     ></div>

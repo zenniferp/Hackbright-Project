@@ -71,9 +71,9 @@ function Search(props) {
                     <button type="submit">Search</button>
                 </form>
             </div>
-            <div>
+            {/* <div>
                 {results.map(result => <p key={result.id}>{result.name}</p>)}
-            </div>
+            </div> */}
             {showMap && <MapComponent results={results}/>}
         </React.Fragment>
     );
