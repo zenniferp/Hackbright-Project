@@ -1,7 +1,6 @@
 "use strict";
 
 //TODO Make lat and lng, zoom props on MapComponent, pass markers as a list as props (watch lecture)
-//TODO MAke this show up in homepage not /map
 
 function MapComponent(props) {
   console.log('rendering the map')
@@ -10,11 +9,11 @@ function MapComponent(props) {
 
   const ref = React.useRef();
   
-  //useState will return map variable and setMap function; should use Ref though so this code will change later
+  // useState will return map variable and setMap function; should use Ref though so this code will change later
   const [map, setMap] = React.useState();
 
   React.useEffect(() => {
-  // instantiating a brand new map, store this in the current state
+  // Instantiate a brand new map & store this in the current state
     if (!window.google) { // Create an html element with a script tag in the DOM
       const script = document.createElement('script');
       script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAjpErE26dDxvQMnZS8I-cUOGjz6WW3rik&libraries=places';
@@ -42,7 +41,12 @@ function MapComponent(props) {
 // map = piece of state from line 12
   if (map) {
     console.log('and the map exists')
-    console.log(props.map)
+
+    // Center the map based on the location of the first result
+    const centerPosition = {
+      lat: props.results[0].coordinates.latitude, 
+      lng: props.results[0].coordinates.longitude
+    }
 
     for (const result of props.results) {
       const barMarker = new google.maps.Marker({
@@ -51,10 +55,13 @@ function MapComponent(props) {
           lng: result.coordinates.longitude
         },
         title: result.name,
-        map: map, //this is the map that the marker needs to go on
+        map: map // this is the map that the marker needs to go on
       });
+      map.setCenter(centerPosition);
     }
-    //TODO set Center using the position of the first result by using indexing and getting the dictonary (see more demo); hardcode in the zoom to 7 though
+    
+    // Zoom the returned map to 12
+    map.setZoom(12);
 
   } else { console.log('but there is no map')}
 

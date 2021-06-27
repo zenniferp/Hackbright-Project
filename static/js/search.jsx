@@ -33,7 +33,7 @@ function Search(props) {
     }
 
 // Show Form
-// passing the user input (evt target value) and update state
+// Pass the user input (evt target value) and update state
     return (
         <React.Fragment>
             <div className="search">
@@ -76,7 +76,6 @@ function Search(props) {
             </div>
             {showMap && <MapComponent results={results}/>}
         </React.Fragment>
-//pass props to line 78 - name={result.name} coords={result.coordinates}- how to do w fragment. 
     );
 }
 
