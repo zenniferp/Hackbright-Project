@@ -13,6 +13,7 @@ function Search(props) {
     const [results, updateResults] = React.useState([])
 // To redirect to a map view
     let history = ReactRouterDOM.useHistory();
+    const [showMap, updateShowMap] = React.useState(false)
 
 // Get data from the backendcd 
     const handleSubmit = (evt) => {
@@ -28,13 +29,13 @@ function Search(props) {
         }
         ).then(response => response.json())
         .then(data => {updateResults(data.businesses)})
-        .then(() => history.push("/map"))
+        .then(() => updateShowMap(true))
     }
 
 // Show Form
 // passing the user input (evt target value) and update state
     return (
-        <ReactRouterDOM.BrowserRouter>
+        <React.Fragment>
             <div className="search">
                 <p> Search for a rooftop bar near you! </p>
                 <form onSubmit = {handleSubmit}>
@@ -71,10 +72,11 @@ function Search(props) {
                 </form>
             </div>
             <div>
-                {results.map(result => <p>{result.name}</p>)}
+                {results.map(result => <p key={result.id}>{result.name}</p>)}
             </div>
-        </ReactRouterDOM.BrowserRouter>
-
+            {showMap && <MapComponent results={results}/>}
+        </React.Fragment>
+//pass props to line 78 - name={result.name} coords={result.coordinates}- how to do w fragment. 
     );
 }
 
