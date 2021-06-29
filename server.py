@@ -37,15 +37,20 @@ def search_rooftop():
     # Make a request to the Yelp API
     response = requests.get(url=endpoint, params=parameters, headers=headers)
 
+
+    # To show more images, use details endpoint
+    # response_images = requests.get(url...)
+    # Grab business ids: response.json()["businesses"][0]["id"] 
+    # Limit number of business results and number of pics
+    # Pass this to maps.jsx
+    # Another idea is to fetch photos when you click on a marker (add an event listener). Send the api request when you construct the particular marker component
+
+
     # Translate the returned JSON string to a dict
     rooftop_data = response.json()
 
     return jsonify(rooftop_data)
 
-# @app.route('api/search/details')
-#     """When a user clicks, open up information... ?"""
-
-# TODO: improve form, add miles, use lat and longitude to pull in google map api
 
 if __name__ == '__main__':
 

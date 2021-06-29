@@ -47,6 +47,10 @@ function MapComponent(props) {
       lat: props.results[0].coordinates.latitude, 
       lng: props.results[0].coordinates.longitude
     }
+    const barInfo = new google.maps.InfoWindow(
+      {
+        maxWidth: 400,
+      });
 
     for (const result of props.results) {
       const barMarker = new google.maps.Marker({
@@ -59,14 +63,15 @@ function MapComponent(props) {
       });
 
       // When a user clicks on the bar marker, show bar name and address
-      const barInfo = new google.maps.InfoWindow();
       const barInfoContent = (`
         <div class="window-content">
-          <h6>${result.name}</h6>
-          <ul class="bar-info">
+          <h3>${result.name}</h3>
+          <img src="${result.image_url}" width="300" height="300" >
+          
+          <ul class="bar-info"><br>
             <li><b>Address: </b>${result.location.display_address}</li>
-            <li><b>Rating: </b>${result.rating}</li>
-            <li><b><a href="${result.url}">Yelp url</a></b></li>
+            <li><b>Rating: </b>${result.rating} stars</li>
+            <li><b><a href="${result.url}">Yelp link</a></b></li>
           </ul>
         </div>
       `);

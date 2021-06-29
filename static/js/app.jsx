@@ -5,6 +5,7 @@
 function App() {
     return (
         <ReactRouterDOM.BrowserRouter>
+            {/* <Navbar logo="/static/img/watermelon.png" brand="Ubermelon"/> */}
             <div className="container-fluid">
                 <ReactRouterDOM.Route exact path = "/">
                     <Homepage />
