@@ -1,11 +1,11 @@
-// main component that will call other component jsx files
+// Main component that will call other component jsx files
 
 "use strict";
 
 function App() {
     return (
         <ReactRouterDOM.BrowserRouter>
-            {/* <Navbar logo="/static/img/watermelon.png" brand="Ubermelon"/> */}
+            {/* <Navbar logo="/static/img/placeholder.png" brand="PLACEHOLDER"/> */}
             <div className="container-fluid">
                 <ReactRouterDOM.Route exact path = "/">
                     <Homepage />

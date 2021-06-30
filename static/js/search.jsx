@@ -1,25 +1,27 @@
 "use strict";
 
-// Frontend > Server > Yelp > Server > Frontend
-
 function Search(props) {
+
 // Return state value and updating function
 // First you wouldn't have any value so pass an empty string
+
     const [street, updateStreet] = React.useState("")
     const [city, updateCity] = React.useState("")
     const [state, updateState] = React.useState("")
     const [radius, updateRadius] = React.useState("")
 
     const [results, updateResults] = React.useState([])
-// To redirect to a map view
+
+// Redirect to a map view
     let history = ReactRouterDOM.useHistory();
     const [showMap, updateShowMap] = React.useState(false)
 
-// Get data from the backendcd 
+// Get data from the backend
     const handleSubmit = (evt) => {
         evt.preventDefault();
         const data = {street, city, state, radius}
-// Hitting my server endpoint which will hit the Yelp API. Then I will get back data from the server and parse it as json.
+
+// Parse the data from the Yelp API/server as json.
         fetch('api/search', {
             method: "POST",
             headers: {
@@ -71,9 +73,6 @@ function Search(props) {
                     <button type="submit">Search</button>
                 </form>
             </div>
-            {/* <div>
-                {results.map(result => <p key={result.id}>{result.name}</p>)}
-            </div> */}
             {showMap && <MapComponent results={results}/>}
         </React.Fragment>
     );

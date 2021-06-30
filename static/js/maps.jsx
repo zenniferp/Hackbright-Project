@@ -1,15 +1,11 @@
 "use strict";
 
-//TODO Make lat and lng, zoom props on MapComponent, pass markers as a list as props (watch lecture)
-
 function MapComponent(props) {
   console.log('rendering the map')
 
-  // Ask Seema for Ref
-
+  // Use useRef to keep track; initially set to undefined. Console.log ref.current to get the html element 
   const ref = React.useRef();
   
-  // useState will return map variable and setMap function; should use Ref though so this code will change later
   const [map, setMap] = React.useState();
 
   React.useEffect(() => {
@@ -36,9 +32,9 @@ function MapComponent(props) {
       console.log('and now there is a map');
       console.log(ref)
     }
-  }, []); // [options.center.lat]); make an empty array for now but this dependency list should include the lat, long, zoom, marker props
+  }, []); // Empty dependency list as lat, lng, and zoom are hard-coded. Always render the markers. 
   
-// map = piece of state from line 12
+// map var comes from a piece of state from line 12
   if (map) {
     console.log('and the map exists')
 
@@ -59,6 +55,10 @@ function MapComponent(props) {
           lng: result.coordinates.longitude
         },
         title: result.name,
+        icon: {
+          url: '/static/img/champagne.png',
+          scaledSize: new google.maps.Size(50, 50)
+        },
         map: map // this is the map that the marker needs to go on
       });
 
@@ -101,4 +101,3 @@ function MapComponent(props) {
     ></div>
   )
 }
-
