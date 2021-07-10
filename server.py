@@ -1,9 +1,15 @@
-from flask import Flask, jsonify, render_template, request, session
+from flask import Flask, jsonify, render_template, request, session, flash, redirect
 import requests
 import json
+import crud
+from model import connect_to_db, User
+from jinja2 import StrictUndefined
 from keys import ACCESS_TOKEN, YELP_API_KEY, MAPS_API_KEY
 
 app = Flask(__name__)
+
+app.secret_key = "dev"
+app.jinja_env.undefined = StrictUndefined
 
 @app.route('/')
 def home():
@@ -39,8 +45,27 @@ def search_rooftop():
 
     return jsonify(rooftop_data)
 
+@app.route('/api/favorite', methods=['POST'])
+def save_favorite():
+
+    yelp_id=request.json.get("result_id")
+    user_id = User.query.first().user_id
+    print("result_id", yelp_id)
+    crud.create_favorite(user_id, yelp_id)
+    return jsonify({"success": True})
+
+@app.route('/api/unfavorite', methods=['POST'])
+def unsave_favorite():
+
+    yelp_id=request.json.get("result_id")
+    user_id = User.query.first().user_id
+    print("result_id", yelp_id)
+    crud.remove_favorite(user_id, yelp_id)
+    return jsonify({"success": True})
+
 if __name__ == '__main__':
 
+    connect_to_db(app)
     app.run('0.0.0.0', debug=True)
 
 

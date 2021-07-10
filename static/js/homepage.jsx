@@ -16,6 +16,8 @@ function Homepage(props) {
 function Navbar(props) {
   const { logo, brand } = props;
 
+
+  
   return (
     <nav>
       <ReactRouterDOM.Link
@@ -32,7 +34,6 @@ function Navbar(props) {
           activeClassName="navlink-active"
           className="nav-link nav-item"
         >
-          Map
         </ReactRouterDOM.NavLink>
       </section>
     </nav>

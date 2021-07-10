@@ -1,5 +1,27 @@
 "use strict";
 
+function saveFav(resultId){
+   const data = {result_id:resultId}
+    fetch('/api/favorite', {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+}
+
+function removeFav(resultId){
+  const data = {result_id:resultId}
+   fetch('/api/unfavorite', {
+       method: "POST",
+       headers: {
+           'Content-Type': 'application/json'
+       },
+       body: JSON.stringify(data)
+   })
+}
+
 function MapComponent(props) {
   console.log('rendering the map')
 
@@ -7,6 +29,8 @@ function MapComponent(props) {
   const ref = React.useRef();
   
   const [map, setMap] = React.useState();
+
+
 
   React.useEffect(() => {
   // Instantiate a brand new map & store this in the current state
@@ -33,7 +57,7 @@ function MapComponent(props) {
       console.log(ref)
     }
   }, []); // Empty dependency list as lat, lng, and zoom are hard-coded. Always render the markers. 
-  
+
 // map var comes from a piece of state from line 12
   if (map) {
     console.log('and the map exists')
@@ -72,15 +96,30 @@ function MapComponent(props) {
             <li><b>Address: </b>${result.location.display_address}</li>
             <li><b>Rating: </b>${result.rating} stars</li>
             <li><b><a href="${result.url}">Yelp link</a></b></li>
+            <li><b><button onclick="saveFav('${result.id}')">Fav</button></b></li>
+            <li><b><button onclick="removeFav('${result.id}')">unFav</button></b></li>
           </ul>
         </div>
       `);
+
+// create a state for isSaved T/F 
+// look at documentation to change the button text and the onclick
+// user babel ({}) to put code in the html
+//             <li><b><button onclick="saveFav('${state variable}')">Fav</button></b></li>
+
 
       barMarker.addListener('click', () => {
         barInfo.close();
         barInfo.setContent(barInfoContent);
         barInfo.open(map, barMarker);
       });
+
+
+      // saveFav.addListner('click', () => {
+      //   //add a route in server for the database; import the functions from crud
+      //   //Post request to database here
+      // });
+
       map.setCenter(centerPosition);
     }
     
