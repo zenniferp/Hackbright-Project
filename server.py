@@ -63,6 +63,15 @@ def unsave_favorite():
     crud.remove_favorite(user_id, yelp_id)
     return jsonify({"success": True})
 
+@app.route('/api/getfavorite', methods=['POST'])
+def get_favorite():
+
+    yelp_id=request.json.get("result_id")
+    user_id = User.query.first().user_id
+    print("result_id", yelp_id)
+    crud.get_favorite(user_id, yelp_id)
+    return jsonify({"success": True})
+
 if __name__ == '__main__':
 
     connect_to_db(app)

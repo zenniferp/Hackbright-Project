@@ -21,6 +21,35 @@ function removeFav(resultId){
        body: JSON.stringify(data)
    })
 }
+// Checking if a user faved a bar from the database...Why doesn't GET work???
+function isFaved(resultId) {
+  const [fav, isFaved] = React.useState();
+  const data = {result_id:resultId};
+  fetch('/api/getfavorite', {
+      method: "POST",
+      headers: {
+          'Content-Type': 'application/json'
+      }, 
+      body: JSON.stringify(data)
+  }).then(data => {
+    console.log(data);
+    isFaved = data;
+  });
+  return isFaved;
+}
+
+function buttonName(resultId) {
+  return (isFaved ? 'Unfav' : 'Fav')
+}
+
+function toggleFav(resultId) {
+  if (isFaved(resultId)) {
+   removeFav(resultId);
+  } else {
+    saveFav(resultId);
+  }
+}
+
 
 function MapComponent(props) {
   console.log('rendering the map')
@@ -29,8 +58,6 @@ function MapComponent(props) {
   const ref = React.useRef();
   
   const [map, setMap] = React.useState();
-
-
 
   React.useEffect(() => {
   // Instantiate a brand new map & store this in the current state
@@ -96,17 +123,17 @@ function MapComponent(props) {
             <li><b>Address: </b>${result.location.display_address}</li>
             <li><b>Rating: </b>${result.rating} stars</li>
             <li><b><a href="${result.url}">Yelp link</a></b></li>
-            <li><b><button onclick="saveFav('${result.id}')">Fav</button></b></li>
-            <li><b><button onclick="removeFav('${result.id}')">unFav</button></b></li>
+            <li><b><button onclick="toggleFav('${result.id}')">${buttonName(result.id)}</button></b></li>
           </ul>
         </div>
       `);
 
-// create a state for isSaved T/F 
-// look at documentation to change the button text and the onclick
-// user babel ({}) to put code in the html
-//             <li><b><button onclick="saveFav('${state variable}')">Fav</button></b></li>
+// Do I need to separate out the bar info window into its own component in this file?
+// How do I create a state for isSaved T/F?
+// TODO: Look at documentation to change the button text and the onclick
 
+{/* <li><b><button onclick="saveFav('${result.id}')">Fav</button></b></li>
+<li><b><button onclick="removeFav('${result.id}')">unFav</button></b></li> */}
 
       barMarker.addListener('click', () => {
         barInfo.close();
@@ -114,8 +141,7 @@ function MapComponent(props) {
         barInfo.open(map, barMarker);
       });
 
-
-      // saveFav.addListner('click', () => {
+      // saveFav.addListener('click', () => {
       //   //add a route in server for the database; import the functions from crud
       //   //Post request to database here
       // });
