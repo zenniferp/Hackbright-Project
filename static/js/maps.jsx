@@ -1,5 +1,7 @@
 "use strict";
 
+
+
 function saveFav(resultId){
    const data = {result_id:resultId}
     fetch('/api/favorite', {
@@ -21,35 +23,34 @@ function removeFav(resultId){
        body: JSON.stringify(data)
    })
 }
-// Checking if a user faved a bar from the database...Why doesn't GET work???
-function isFaved(resultId) {
-  const [fav, isFaved] = React.useState();
-  const data = {result_id:resultId};
-  fetch('/api/getfavorite', {
-      method: "POST",
-      headers: {
-          'Content-Type': 'application/json'
-      }, 
-      body: JSON.stringify(data)
-  }).then(data => {
-    console.log(data);
-    isFaved = data;
-  });
-  return isFaved;
-}
 
-function buttonName(resultId) {
-  return (isFaved ? 'Unfav' : 'Fav')
-}
+// function isFaved(resultId) {
+//   const data = {result_id:resultId};
+//   fetch('/api/getfavorite', {
+//       method: "POST",
+//       headers: {
+//           'Content-Type': 'application/json'
+//       }, 
+//       body: JSON.stringify(data)
+//   }).then(data => {
+//     console.log(data);
+//     faved = data;
+//   });
+//   return faved;
+// }
 
-function toggleFav(resultId) {
-  if (isFaved(resultId)) {
+// function buttonName(resultId) {
+//   return (isFaved ? 'Unfav' : 'Fav')
+// }
+
+function toggleFav(resultId, isFaved) {
+  console.log(isFaved)
+  if (isFaved) {
    removeFav(resultId);
   } else {
     saveFav(resultId);
   }
 }
-
 
 function MapComponent(props) {
   console.log('rendering the map')
@@ -58,6 +59,8 @@ function MapComponent(props) {
   const ref = React.useRef();
   
   const [map, setMap] = React.useState();
+
+  const [fav, isFaved] = React.useState({});
 
   React.useEffect(() => {
   // Instantiate a brand new map & store this in the current state
@@ -123,7 +126,7 @@ function MapComponent(props) {
             <li><b>Address: </b>${result.location.display_address}</li>
             <li><b>Rating: </b>${result.rating} stars</li>
             <li><b><a href="${result.url}">Yelp link</a></b></li>
-            <li><b><button onclick="toggleFav('${result.id}')">${buttonName(result.id)}</button></b></li>
+            <li><b><button onclick="toggleFav('${result.id}', '${result.favorited}')">${result.favorited ? 'Unfav' : 'Fav'}</button></b></li>
           </ul>
         </div>
       `);

@@ -30,7 +30,7 @@ function Search(props) {
             body: JSON.stringify(data)
         }
         ).then(response => response.json())
-        .then(data => {updateResults(data.businesses)})
+        .then(data => {updateResults(data)})
         .then(() => updateShowMap(true))
     }
 

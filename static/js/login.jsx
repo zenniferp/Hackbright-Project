@@ -13,3 +13,5 @@
 
 // Create a route in server. Add the tables. Ratings table is similar to favorites. 
 // Make a few fake user and do the favorites first. Try picking which fake user is favoriting and then save favorites. And then build the log in as part 3.
+
+// check testing 2 lecture for Flask sessions login logout

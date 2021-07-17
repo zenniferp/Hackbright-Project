@@ -43,7 +43,15 @@ def search_rooftop():
     # Translate the returned JSON string to a dict
     rooftop_data = response.json()
 
-    return jsonify(rooftop_data)
+    user_id = User.query.first().user_id
+    
+    businesses = rooftop_data["businesses"]
+    for business in businesses:
+        yelp_id = business["id"]
+        favorite = crud.get_favorite(user_id, yelp_id)
+        business["favorited"] = True if favorite else False
+
+    return jsonify(businesses)
 
 @app.route('/api/favorite', methods=['POST'])
 def save_favorite():
